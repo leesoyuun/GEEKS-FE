@@ -451,7 +451,7 @@ const Home = () => {
           </HomeBox>
         </c.SubScreen>
       </c.ScreenComponent>
-      <NavigationBar type={`home`} isAdmin={isAdmin}/>
+      <NavigationBar type={`home`}/>
     </c.Totalframe>
   );
 };
