@@ -115,6 +115,7 @@ const InputEmail = () => {
         }
         if(res.data === 'success'){
           setAutomaticLogIn(true);
+          localStorage.setItem('isadmin',false);
         }
         else{
           setIsPwdSelected('error');
