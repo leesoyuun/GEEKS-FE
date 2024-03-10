@@ -159,7 +159,7 @@ const Community = () => {
         </c.SubScreen>
       </c.ScreenComponent>
       {
-        isAdmin ? <NavigationBar type={`community`} isAdmin={true}/> :
+        isAdmin == 'true' ? <NavigationBar type={`community`} isAdmin={isAdmin}/> :
         <NavigationBar type={`community`} />
       }
     </c.Totalframe>

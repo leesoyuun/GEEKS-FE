@@ -101,7 +101,7 @@ const NavigationBar = (props) => {
   };
 
   return (
-    props.isAdmin ?
+    props.isAdmin === 'true'?
     <TotalNavigationBar>
       <Icons isSelected={selectIcon == 'suggestion'} onClick={() => handlePage('isSuggestion')}>
         {selectIcon == 'suggestion' ? <Icon src={FillSuggestion} /> : <Icon src={Suggestion} />}
