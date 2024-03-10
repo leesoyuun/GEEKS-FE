@@ -21,8 +21,6 @@ import inquiry from "../../assets/img/MyPage/inquiry.svg";
 import secession from "../../assets/img/MyPage/secession.svg";
 import logout from "../../assets/img/MyPage/logout.svg";
 import GiftBox from "../../assets/img/MyPage/giftBox.svg";
-import { useSetRecoilState } from "recoil";
-import { UserNickName } from "../../recoil/UserNickName";
 import Loading from "../Loading";
 
 const UserInfoTop = styled.div`
@@ -122,8 +120,6 @@ const MyPage = () => {
   const [userMajor, setUserMajor] = useState("");
   const [loading, setLoading] = useState(true);
 
-  const setContent = useSetRecoilState(UserNickName);
-
   const clickedToggle = () => {
     let toggleVal = !toggle;
     setToggle(toggleVal);
@@ -143,7 +139,6 @@ const MyPage = () => {
       try {
         const res = await API.get("/member/myPage");
         setUserInfo(res.data);
-        setContent(res.data.nickname);
         setToggle(res.data.open);
         if (res.data.major.includes("공학과"))
           setUserMajor(res.data.major.replace("공학과", ""));

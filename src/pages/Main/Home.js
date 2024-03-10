@@ -5,6 +5,8 @@ import "moment/locale/ko";
 import API from "../../axios/BaseUrl";
 import styled from "styled-components";
 import * as c from "../../components/Common/CommonStyle";
+import { IsAdmin } from '../../recoil/IsAdmin';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
 import Header from "../../components/Main/Header";
 import NavigationBar from "../../components/Main/NavigationBar";
 import MainOtherProfile from "../../components/Main/MainOtherProfile";
@@ -17,7 +19,6 @@ import stayOut from "../../assets/img/Home/stayOut.svg";
 import dormiNoti from "../../assets/img/Home/dormiNoti.svg";
 import Close from "../../assets/img/Home/close.svg";
 import Find from "../../assets/gif/find.gif";
-import BasicProfile from "../../assets/img/MyPage/basicProfile.svg";
 import BoldClose from "../../assets/img/Home/boldClose.svg";
 import Loading from "../Loading";
 
@@ -52,7 +53,7 @@ const IconText = styled.div`
   font-weight: 500;
 `;
 const ApplyRoommate = styled.div`
-  widht: 100%;
+  width: 100%;
   background: #fff4cd;
   padding: 20px 20px 32px 20px;
   margin-top: 32px;
@@ -219,6 +220,8 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [active, setActive] = useState(false);
   const navigate = useNavigate();
+
+  const isAdmin = useRecoilValue(IsAdmin);
 
   const handlePage = () => {
     navigate("/liverule");
@@ -448,7 +451,7 @@ const Home = () => {
           </HomeBox>
         </c.SubScreen>
       </c.ScreenComponent>
-      <NavigationBar type={`home`} />
+      <NavigationBar type={`home`} isAdmin={isAdmin}/>
     </c.Totalframe>
   );
 };

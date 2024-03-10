@@ -35,6 +35,7 @@ const Content = styled.div`
   color: #525252;
   margin-top: 12px;
   margin-bottom: 20px;
+  word-break:break-all;
 `;
 const AgreeBtn = styled.div`
   display: flex;
@@ -58,6 +59,13 @@ const AgreeTxt = styled.div`
   margin-left: 4px;
   color: ${(props) => (props.isAgree ? "#118E8E" : "#707070")};
 `;
+const PostImg = styled.img`
+  border-radius: 16px;
+  width: 100%;
+  overflow: hidden;
+  object-fit: contain;
+  margin-bottom: 10px;
+`;
 const DetailSuggestion = () => {
   const [loading, setLoading] = useState(false);
   const [detailData, setDetailData] = useState([]);
@@ -74,6 +82,7 @@ const DetailSuggestion = () => {
         setDetailData(res.data);
         setAgreeCnt(res.data.agreeCount)
         setIsAgree(res.data.agreeState);
+        console.log(res.data);
       } catch (error) {
         console.error(error);
       }
@@ -85,9 +94,9 @@ const DetailSuggestion = () => {
     return moment(uploadTime).fromNow(`A`) + "전"; // 지금으로부터 계산
   };
   const handleAgreeState = (e) => {
-    if(location.state?.isAdmin){
+    if (location.state?.isAdmin) {
       e.preventDefault();
-    }else{
+    } else {
       if (!isAgree) {
         const fetchAddAgree = async () => {
           try {
@@ -117,18 +126,18 @@ const DetailSuggestion = () => {
     }
   };
 
-  const handleProcess = async(processState) => {
+  const handleProcess = async (processState) => {
     try {
-      const res = await API.patch("/suggestion/state/update",{
+      const res = await API.patch("/suggestion/state/update", {
         suggestionId: pagenum,
         suggestionState: processState
       });
-      if(res.data === 'success') window.location.reload();
+      if (res.data === 'success') window.location.reload();
     } catch (error) {
       console.error(error);
     }
   }
-  
+
   return loading ? (
     <Loading />
   ) : (
@@ -140,6 +149,9 @@ const DetailSuggestion = () => {
         </TimeDormitory>
         <Title>{detailData.title}</Title>
         <Content>{detailData.content}</Content>
+        {detailData.photoNames?.map((photo) => (
+          <PostImg
+            src={ process.env.REACT_APP_BUCKET_BASEURL + photo} /> ))}
         <AgreeBtn onClick={(e) => handleAgreeState(e)}>
           <AgreeIcon src={isAgree ? FillAgree : Agree} />
           <AgreeTxt isAgree={isAgree}>
@@ -162,6 +174,7 @@ const DetailSuggestion = () => {
             )}
           </>
         )}
+
       </c.ScreenComponent>
     </c.Totalframe>
   );

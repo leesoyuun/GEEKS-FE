@@ -16,10 +16,19 @@ const ProcessSmallBtn = styled.div`
   border-radius: 6px;
   font-size: 0.875rem;
   font-weight: 500;
-  background-color: ${(props)=>props.process === '처리 중' ? '#FCEDE8' : props.proccess === '처리 완료' ? '#EDF7FD' : '#EFEFEF'};
-  color: ${(props)=>props.process == '처리 중' ? '#AA3106' : props.proccess == '처리 완료' ? '#184B96' : '#707070'};
+  background-color: ${(props) =>
+    props.process === "처리 중"
+      ? "#FCEDE8"
+      : props.process === "처리 완료"
+      ? "#EDF7FD"
+      : "#EFEFEF"};
+  color: ${(props) =>
+    props.process == "처리 중"
+      ? "#AA3106"
+      : props.process == "처리 완료"
+      ? "#184B96"
+      : "#707070"};
 `;
-// props.btnName === '처리 중' ? '#FCEDE8' : props.btnName === '처리 완료' ? '#EDF7FD' : '#F7F7F7'};
 const PostTitle = styled.div`
   font-size: 1.125rem;
   font-weight: 600;
@@ -27,9 +36,9 @@ const PostTitle = styled.div`
   text-align: left;
   color: #333333;
   width: 48.71vw;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 const PostContent = styled.div`
   font-size: 1rem;
@@ -38,10 +47,10 @@ const PostContent = styled.div`
   text-align: left;
   color: #525252;
   margin-bottom: 8px;
-  width: 100%;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
+  width: ${(props)=>props.isPhoto ? '200px': '100%'};
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 const PostTime = styled.div`
   font-size: 0.875rem;
@@ -71,21 +80,38 @@ const IconNum = styled.div`
   line-height: 18px;
   color: #ec5062;
 `;
+const PostImg = styled.img`
+  width: 76px;
+  height: 76px;
+  border-radius: 12px;
+  margin-top: 20px;
+`;
 const SuggestionPost = (props) => {
   return (
     <div onClick={props.onClick}>
-      <PostTotalTitle>
-        {props.process !== null && <ProcessSmallBtn process={props.process}>{props.process}</ProcessSmallBtn>}
-        <PostTitle>{props.title}</PostTitle>
-        {props.cnt && (
-          <Icons>
-            <Icon src={SuggestionIcon} />
-            <IconNum>{props.cnt}</IconNum>
-          </Icons>
+      <c.SpaceBetween>
+        <div>
+          <PostTotalTitle>
+            {props.process !== null && (
+              <ProcessSmallBtn process={props.process}>
+                {props.process}
+              </ProcessSmallBtn>
+            )}
+            <PostTitle>{props.title}</PostTitle>
+            {props.cnt && (
+              <Icons>
+                <Icon src={SuggestionIcon} />
+                <IconNum>{props.cnt}</IconNum>
+              </Icons>
+            )}
+          </PostTotalTitle>
+          <PostContent isPhoto={props.postImg !== null}>{props.content}</PostContent>
+          <PostTime>{props.time}</PostTime>
+        </div>
+        {props.postImg == null ? null : (
+          <PostImg src={process.env.REACT_APP_BUCKET_BASEURL + props.postImg} />
         )}
-      </PostTotalTitle>
-      <PostContent>{props.content}</PostContent>
-      <PostTime>{props.time}</PostTime>
+      </c.SpaceBetween>
       <Line />
     </div>
   );
