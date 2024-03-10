@@ -35,7 +35,7 @@ const PostTitle = styled.div`
   line-height: 24px;
   text-align: left;
   color: #333333;
-  width: 48.71vw;
+  max-width: 48.71vw;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
