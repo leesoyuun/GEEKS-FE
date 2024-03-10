@@ -185,6 +185,8 @@ const Suggestion = () => {
                 title={data.title}
                 content={data.content}
                 time={caclTime(data.createDate)}
+                gender={data.gender === 'MALE' ? '남자' : '여자'}
+                dormitory={data.type === 'NEW' ? '신관' : data.type === 'OLD' ? '구관' : '행복 기숙사'}
                 cnt={data.agreeCount === 0 ? false : data.agreeCount}
                 postImg={data.photoName}
                 onClick={() =>
