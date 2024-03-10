@@ -419,7 +419,7 @@ const Post = () => {
             </BottomSheet>
           </c.SubScreen>
         </c.ScreenComponent>
-        {!isAdmin &&<InputCommentBox>
+        {isAdmin == 'false' &&<InputCommentBox>
           <TotalInput>
             <Anonymous onClick={()=>setIsAnonymity(!isAnonymity)}>
               <AnonymousBox src={ isAnonymity ? FillCheckBox : CheckBox} />

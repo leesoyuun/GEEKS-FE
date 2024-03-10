@@ -71,6 +71,7 @@ const DetailSuggestion = () => {
   const [detailData, setDetailData] = useState([]);
   const [isAgree, setIsAgree] = useState(false);
   const [agreeCnt, setAgreeCnt] = useState(0);
+  const isAdmin = localStorage.getItem('isadmin');
   const navigate = useNavigate();
   const location = useLocation();
   const { pagenum } = useParams();
@@ -94,7 +95,7 @@ const DetailSuggestion = () => {
     return moment(uploadTime).fromNow(`A`) + "전"; // 지금으로부터 계산
   };
   const handleAgreeState = (e) => {
-    if (location.state?.isAdmin) {
+    if (isAdmin === 'true') {
       e.preventDefault();
     } else {
       if (!isAgree) {
@@ -149,9 +150,7 @@ const DetailSuggestion = () => {
         </TimeDormitory>
         <Title>{detailData.title}</Title>
         <Content>{detailData.content}</Content>
-        {detailData.photoNames?.map((photo) => (
-          <PostImg
-            src={ process.env.REACT_APP_BUCKET_BASEURL + photo} /> ))}
+        {detailData.photoNames?.map((photo) => ( <PostImg src={ process.env.REACT_APP_BUCKET_BASEURL + photo} /> ))}
         <AgreeBtn onClick={(e) => handleAgreeState(e)}>
           <AgreeIcon src={isAgree ? FillAgree : Agree} />
           <AgreeTxt isAgree={isAgree}>
@@ -161,7 +160,7 @@ const DetailSuggestion = () => {
         {detailData.suggestionState === 'ONGOING' && <ProcessBar btnName={`처리 중`}></ProcessBar>}
         {detailData.suggestionState === 'COMPLETE' && <ProcessBar btnName={`처리 완료`}></ProcessBar>}
         {detailData.suggestionState === 'DEFER' && <ProcessBar btnName={`처리 보류`}></ProcessBar>}
-        {location.state?.isAdmin && (
+        {isAdmin == 'true' && (
           <>
             {detailData.suggestionState !== 'ONGOING' && (
               <ProcessBtn btnName={`처리 중`} onClick={() => handleProcess('ONGOING')} />

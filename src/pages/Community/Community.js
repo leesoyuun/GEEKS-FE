@@ -150,7 +150,7 @@ const Community = () => {
             />
           ))}
           <FetchMore items={post} setCursor={setCursor}/>
-          {!isAdmin &&
+          {isAdmin == 'false' &&
           <WritePostBox onClick={()=>navigate('/writepost')}>
             <WritePostIcon src={WritePost}/>
             <WriteTxt>{`글쓰기`}</WriteTxt>

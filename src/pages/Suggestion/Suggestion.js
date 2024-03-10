@@ -196,7 +196,7 @@ const Suggestion = () => {
             ))}
         <FetchMore items={filterState !== false ? filterPost : post} setCursor={setCursor} />
       </c.ScreenComponent>
-      {!isAdmin && (
+      {isAdmin == 'false' && (
         <WritePostBox onClick={() => navigate("/writesuggestion")}>
           <WritePostIcon src={WritePost} />
           <WriteTxt>{`건의하기`}</WriteTxt>
