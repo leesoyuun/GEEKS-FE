@@ -145,7 +145,7 @@ const DetailSuggestion = () => {
       <c.ScreenComponent>
         <Header />
         <TimeDormitory>
-          {caclTime(detailData.createdDate)} · {`신관`}
+           {detailData.type === 'NEW' ? '신관' : detailData.type === 'OLD' ? '구관' : '행복 기숙사'} {detailData.gender === 'MALE' ? '남자' : '여자'} · {caclTime(detailData.createdDate)}
         </TimeDormitory>
         <Title>{detailData.title}</Title>
         <Content>{detailData.content}</Content>

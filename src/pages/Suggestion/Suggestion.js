@@ -82,8 +82,8 @@ const Suggestion = () => {
   const [filterState, setFilterState] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const isAdmin = localStorage.getItem('isadmin');
 
-  const isAdmin = location.state?.isAdmin;
   async function fetchFilter() {
     try {
       const res = await API.get(`/suggestion/filter/${filterState}/${cursor}`);
@@ -168,6 +168,8 @@ const Suggestion = () => {
               <SuggestionPost
                 process={ data.suggestionState !== "NONE" ? data.suggestionState === "ONGOING" ? "처리 중" : data.suggestionState === "COMPLETE" ? "처리 완료": "처리 보류" : null}
                 title={data.title}
+                gender={data.gender === 'MALE' ? '남자' : '여자'}
+                dormitory={data.type === 'NEW' ? '신관' : data.type === 'OLD' ? '구관' : '행복 기숙사'}
                 content={data.content}
                 time={caclTime(data.createDate)}
                 cnt={data.agreeCount === 0 ? false : data.agreeCount}
@@ -200,7 +202,7 @@ const Suggestion = () => {
           <WriteTxt>{`건의하기`}</WriteTxt>
         </WritePostBox>
       )}
-      <NavigationBar type={`suggestion`} />
+      <NavigationBar type={`suggestion`} isAdmin={isAdmin}/>
     </c.Totalframe>
   );
 };

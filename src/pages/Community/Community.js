@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../../axios/BaseUrl";
-import axios from "axios";
 import moment from "moment";
 import 'moment/locale/ko';
 import FetchMore from "../../components/Community/FetchMore";
@@ -89,7 +88,7 @@ const Community = () => {
   const [cursor, setCursor] = useState(0);
   const [hasNext, setHasNext] = useState(true);
   const [loading, setLoading] = useState(true);
-
+  const isAdmin = localStorage.getItem('isadmin');
   let navigate = useNavigate();
 
   async function fetchAllPost() {
@@ -151,13 +150,18 @@ const Community = () => {
             />
           ))}
           <FetchMore items={post} setCursor={setCursor}/>
+          {!isAdmin &&
           <WritePostBox onClick={()=>navigate('/writepost')}>
             <WritePostIcon src={WritePost}/>
             <WriteTxt>{`글쓰기`}</WriteTxt>
           </WritePostBox>
+          }
         </c.SubScreen>
       </c.ScreenComponent>
-      <NavigationBar type={`community`} />
+      {
+        isAdmin ? <NavigationBar type={`community`} isAdmin={true}/> :
+        <NavigationBar type={`community`} />
+      }
     </c.Totalframe>
   );
 };

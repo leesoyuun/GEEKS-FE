@@ -106,7 +106,7 @@ const SuggestionPost = (props) => {
             )}
           </PostTotalTitle>
           <PostContent isPhoto={props.postImg !== null}>{props.content}</PostContent>
-          <PostTime>{props.time}</PostTime>
+          <PostTime>{props.gender} {props.dormitory} · {props.time}</PostTime>
         </div>
         {props.postImg == null ? null : (
           <PostImg src={process.env.REACT_APP_BUCKET_BASEURL + props.postImg} />

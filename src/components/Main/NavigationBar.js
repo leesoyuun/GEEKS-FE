@@ -63,7 +63,7 @@ const NavigationBar = (props) => {
     setSelectIcon(props.type);
   },[props.type]);
 
-  const handlePage = (pageName,isAdmin) => {
+  const handlePage = (pageName) => {
     setIsHome(false);
     setIsRoommate(false);
     setIsChat(false);
@@ -73,7 +73,7 @@ const NavigationBar = (props) => {
     switch (pageName) {
       case 'isHome':
         setIsHome(true);
-        if(!isAdmin) navigate('/home');
+        navigate('/home');
         break;
       case 'isRoommate':
         setIsRoommate(true);
@@ -93,7 +93,7 @@ const NavigationBar = (props) => {
         break;
       case 'isMy':
         setIsMy(true);
-        if(!isAdmin) navigate('/mypage');
+        navigate('/mypage');
         break;
       default:
         break;
@@ -101,8 +101,19 @@ const NavigationBar = (props) => {
   };
 
   return (
+    props.isAdmin ?
     <TotalNavigationBar>
-      <Icons isSelected={selectIcon == 'home'} onClick={() => handlePage('isHome',props.isAdmin)}>
+      <Icons isSelected={selectIcon == 'suggestion'} onClick={() => handlePage('isSuggestion')}>
+        {selectIcon == 'suggestion' ? <Icon src={FillSuggestion} /> : <Icon src={Suggestion} />}
+        <IconText>건의함</IconText>
+      </Icons>
+      <Icons isSelected={selectIcon == 'community'} onClick={() => handlePage('isCommunity')}>
+        {selectIcon == 'community' ? <Icon src={FillCommunity} /> : <Icon src={Community} />}
+        <IconText>커뮤니티</IconText>
+      </Icons>
+    </TotalNavigationBar> :
+    <TotalNavigationBar>
+      <Icons isSelected={selectIcon == 'home'} onClick={() => handlePage('isHome')}>
         {selectIcon == 'home' ? <Icon src={FillHome} /> : <Icon src={Home} />}
         <IconText>홈</IconText>
       </Icons>
@@ -110,11 +121,11 @@ const NavigationBar = (props) => {
         {selectIcon == 'rommate' ? <Icon src={FillRoommate} /> : <Icon src={Roommate} />}
         <IconText>룸메찾기</IconText>
       </Icons> */}
-      <Icons isSelected={selectIcon == 'suggestion'} onClick={() => handlePage('isSuggestion',false)}>
+      <Icons isSelected={selectIcon == 'suggestion'} onClick={() => handlePage('isSuggestion')}>
         {selectIcon == 'suggestion' ? <Icon src={FillSuggestion} /> : <Icon src={Suggestion} />}
         <IconText>건의함</IconText>
       </Icons>
-      <Icons isSelected={selectIcon == 'community'} onClick={() => handlePage('isCommunity',false)}>
+      <Icons isSelected={selectIcon == 'community'} onClick={() => handlePage('isCommunity')}>
         {selectIcon == 'community' ? <Icon src={FillCommunity} /> : <Icon src={Community} />}
         <IconText>커뮤니티</IconText>
       </Icons>
@@ -122,7 +133,7 @@ const NavigationBar = (props) => {
         {selectIcon == 'chat' ? <Icon src={FillChat} /> : <Icon src={Chat} />}
         <IconText>대화</IconText>
       </Icons> */}
-      <Icons isSelected={selectIcon == 'mypage'} onClick={() => handlePage('isMy',props.isAdmin)}>
+      <Icons isSelected={selectIcon == 'mypage'} onClick={() => handlePage('isMy')}>
         {selectIcon == 'mypage' ? <Icon src={FillMyPage} /> : <Icon src={Mypage} />}
         <IconText>마이</IconText>
       </Icons>

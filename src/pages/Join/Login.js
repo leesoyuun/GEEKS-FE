@@ -3,6 +3,8 @@ import API from "../../axios/BaseUrl";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import * as c from "../../components/Common/CommonStyle";
+import { IsAdmin } from '../../recoil/IsAdmin';
+import { useSetRecoilState } from 'recoil';
 import HeaderMenu from "../../components/Common/HeaderMenu";
 import MainText from "../../components/Join/MainText";
 import ErrorPopup from "../../components/Common/ErrorPopup";
@@ -109,6 +111,7 @@ const InputEmail = () => {
         });
         if(res.data === 'admin'){
           navigate('/managermain');
+          localStorage.setItem('isadmin',true);
         }
         if(res.data === 'success'){
           setAutomaticLogIn(true);

@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import API from "../../axios/BaseUrl";
 import moment from "moment";
 import "moment/locale/ko";
-import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import * as c from "../../components/Common/CommonStyle";
 import HeaderMenu from "../../components/Common/HeaderMenu";
@@ -156,6 +156,7 @@ const Post = () => {
   const [nowFocus, setNowFocus] = useState(-1);
   const [showPopup, setShowPopup] = useState(false);
   const [commentInfo, setCommentInfo] = useState([]);
+  const isAdmin = localStorage.getItem('isadmin');
 
   const commentRef = useRef();
   let { postId } = useParams();
@@ -418,7 +419,7 @@ const Post = () => {
             </BottomSheet>
           </c.SubScreen>
         </c.ScreenComponent>
-        <InputCommentBox>
+        {!isAdmin &&<InputCommentBox>
           <TotalInput>
             <Anonymous onClick={()=>setIsAnonymity(!isAnonymity)}>
               <AnonymousBox src={ isAnonymity ? FillCheckBox : CheckBox} />
@@ -446,7 +447,7 @@ const Post = () => {
               </Modal>
             )}
           </TotalInput>
-        </InputCommentBox>
+        </InputCommentBox>}
       </c.Totalframe>
     )
   );
