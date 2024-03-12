@@ -155,7 +155,7 @@ const DetailSuggestion = () => {
           <AgreeIcon src={isAgree ? FillAgree : Agree} />          
           {isAdmin === 'true' ?
           <AgreeTxt >
-            {agreeCnt + `명이 동의해요`}
+            {agreeCnt > 0 ? `${agreeCnt}명이 동의해요` : '동의해요'}
           </AgreeTxt> :
           <AgreeTxt isAgree={isAgree}>
             {isAgree ? agreeCnt + `명이 동의해요` : `동의하기`}
