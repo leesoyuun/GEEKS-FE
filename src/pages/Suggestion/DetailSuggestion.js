@@ -117,6 +117,7 @@ const DetailSuggestion = () => {
             const res = await API.post("/suggestion/decrease/agree/" + pagenum);
             if (res.data === 'success') {
               setIsAgree(!isAgree);
+              setAgreeCnt(agreeCnt - 1);
             }
           } catch (error) {
             console.error(error);
