@@ -152,10 +152,15 @@ const DetailSuggestion = () => {
         <Content>{detailData.content}</Content>
         {detailData.photoNames?.map((photo) => ( <PostImg src={ process.env.REACT_APP_BUCKET_BASEURL + photo} /> ))}
         <AgreeBtn onClick={(e) => handleAgreeState(e)}>
-          <AgreeIcon src={isAgree ? FillAgree : Agree} />
+          <AgreeIcon src={isAgree ? FillAgree : Agree} />          
+          {isAdmin === 'true' ?
+          <AgreeTxt >
+            {agreeCnt + `명이 동의해요`}
+          </AgreeTxt> :
           <AgreeTxt isAgree={isAgree}>
             {isAgree ? agreeCnt + `명이 동의해요` : `동의하기`}
           </AgreeTxt>
+          }
         </AgreeBtn>
         {detailData.suggestionState === 'ONGOING' && <ProcessBar btnName={`처리 중`}></ProcessBar>}
         {detailData.suggestionState === 'COMPLETE' && <ProcessBar btnName={`처리 완료`}></ProcessBar>}
